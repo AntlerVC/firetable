@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import _groupBy from "lodash/groupBy";
 import _find from "lodash/find";
 import {
@@ -33,6 +33,7 @@ import TableSettingsDialog, {
 
 import ProjectSettings from "components/ProjectSettings";
 import EmptyState from "components/EmptyState";
+import WIKI_LINKS from "constants/wikiLinks";
 const useStyles = makeStyles((theme) =>
   createStyles({
     "@global": {
@@ -50,8 +51,6 @@ const useStyles = makeStyles((theme) =>
     },
     sectionHeader: {
       color: theme.palette.text.secondary,
-      textTransform: "uppercase",
-      letterSpacing: `${2 / 13}em`,
     },
     divider: { margin: theme.spacing(1, 0, 3) },
 
@@ -157,10 +156,7 @@ export default function HomePage() {
             </Typography>
             <Typography variant="body2">
               If you are the project owner please follow the instructions{" "}
-              <a
-                href="https://github.com/AntlerVC/firetable/wiki/Role-Based-Security-Rules"
-                target="_blank"
-              >
+              <a href={WIKI_LINKS.securityRules} target="_blank" rel="noopener">
                 here
               </a>{" "}
               to setup the project rules.
@@ -235,7 +231,7 @@ export default function HomePage() {
           {favs.length !== 0 && (
             <section id="favorites" className={classes.section}>
               <Typography
-                variant="subtitle2"
+                variant="h6"
                 component="h1"
                 className={classes.sectionHeader}
               >
@@ -263,7 +259,7 @@ export default function HomePage() {
                 className={classes.section}
               >
                 <Typography
-                  variant="subtitle2"
+                  variant="h6"
                   component="h1"
                   className={classes.sectionHeader}
                 >
@@ -315,10 +311,9 @@ export default function HomePage() {
         mode={settingsDialogState.mode}
         data={settingsDialogState.data}
       />
-      <ProjectSettings
-        open={openProjectSettings}
-        handleClose={() => setOpenProjectSettings(false)}
-      />
+      {openProjectSettings && (
+        <ProjectSettings handleClose={() => setOpenProjectSettings(false)} />
+      )}
     </HomeNavigation>
   );
 }

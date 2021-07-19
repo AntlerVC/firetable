@@ -13,9 +13,11 @@ import {
 import Subheading from "../Subheading";
 
 import { getFieldProp } from "components/fields";
-import CodeEditor from "components/CodeEditor";
+import CodeEditorHelper from "components/CodeEditorHelper";
+import CodeEditor from "components/Table/editors/CodeEditor";
 import FormAutosave from "./FormAutosave";
 import { FieldType } from "constants/fields";
+import WIKI_LINKS from "constants/wikiLinks";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -128,18 +130,21 @@ export default function DefaultValueInput({
       )}
 
       {config.defaultValue?.type === "dynamic" && (
-        <div className={classes.codeEditorContainer}>
-          <CodeEditor
-            height={120}
-            value={config.defaultValue?.script}
-            onChange={handleChange("defaultValue.script")}
-            editorOptions={{
-              minimap: {
-                enabled: false,
-              },
-            }}
-          />
-        </div>
+        <>
+          <CodeEditorHelper docLink={WIKI_LINKS.defaultValues} />
+          <div className={classes.codeEditorContainer}>
+            <CodeEditor
+              height={120}
+              value={config.defaultValue?.script}
+              onChange={handleChange("defaultValue.script")}
+              editorOptions={{
+                minimap: {
+                  enabled: false,
+                },
+              }}
+            />
+          </div>
+        </>
       )}
     </>
   );

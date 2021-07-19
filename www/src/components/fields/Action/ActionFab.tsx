@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import _get from "lodash/get";
 
 import { Fab, FabProps, CircularProgress } from "@material-ui/core";
@@ -131,8 +131,8 @@ export default function ActionFab({
         isRunning ||
         !!(
           hasRan &&
-          (config["redo.enabled"] ? false : !value.redo) &&
-          (config["undo.enabled"] ? false : !value.undo)
+          (config.redo?.enabled ? false : !value.redo) &&
+          (config.undo?.enabled ? false : !value.undo)
         ) ||
         disabled
       }
